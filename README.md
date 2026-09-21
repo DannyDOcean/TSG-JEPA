@@ -7,13 +7,15 @@ TSG-JEPA — *"japatoidal"* = **JEPA** + **toroidal** — is a **~1.3M-parameter
 > **Four-seed evaluation on the official out-of-distribution test split (two unseen hospitals):**
 > accuracy is **93.70–94.04%** and AUC is **0.9783–0.9789** across random seeds 42, 123, 456, and 789 — at ~1.3M parameters and **zero external pre-training data**.
 
-## TSG-JEPA in 30 seconds
+## Videos
 
-<p align="center">
-  <video src="https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/TSG-JEPA_30s_1080p.mp4" controls playsinline width="80%"></video>
-</p>
+### TSG-JEPA in 30 seconds
 
-> &#9654; If the inline player does not load, **[play the 30-second overview](https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/TSG-JEPA_30s_1080p.mp4)**.
+https://github.com/user-attachments/assets/859ce82a-3752-4498-973f-e4444f57769f
+
+### Toroidal convolution in motion
+
+https://github.com/user-attachments/assets/4adc6b2d-3f45-4f19-a6f9-90e2ed514785
 
 ---
 
@@ -43,11 +45,7 @@ The feature maps remain ordinary 2D tensors; the torus is a mathematical visuali
 
 ### The toroidal convolution — in motion
 
-<p align="center">
-  <video src="https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/toroidal_convolution.mp4" controls muted loop width="60%" poster="https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/video_poster.png"></video>
-</p>
-
-> &#9654; If the inline player does not load, **[watch the animation here](https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/toroidal_convolution.mp4)**.
+[Watch the playable animation at the top of this README](#toroidal-convolution-in-motion).
 
 Circular padding treats a 96&times;96 H&E patch as a **torus** for boundary connectivity: opposite edges are identified so a 3&times;3 kernel can cross the image boundary without zero padding. This is a mathematical boundary condition applied to an ordinary 2D feature map.
 
