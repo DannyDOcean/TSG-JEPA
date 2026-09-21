@@ -7,6 +7,14 @@ TSG-JEPA — *"japatoidal"* = **JEPA** + **toroidal** — is a **~1.3M-parameter
 > **Four-seed evaluation on the official out-of-distribution test split (two unseen hospitals):**
 > accuracy is **93.70–94.04%** and AUC is **0.9783–0.9789** across random seeds 42, 123, 456, and 789 — at ~1.3M parameters and **zero external pre-training data**.
 
+## TSG-JEPA in 30 seconds
+
+<p align="center">
+  <video src="https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/TSG-JEPA_30s_1080p.mp4" controls playsinline width="80%"></video>
+</p>
+
+> &#9654; If the inline player does not load, **[play the 30-second overview](https://github.com/DannyDOcean/TSG-JEPA/raw/main/assets/TSG-JEPA_30s_1080p.mp4)**.
+
 ---
 
 ## Architecture
@@ -133,6 +141,7 @@ Squeeze-excite attention and multi-scale pooling are the load-bearing components
 |---|---|
 | `TSG_JEPA.ipynb` | Full Colab notebook: data download → SSL pretraining → fine-tuning → evaluation. |
 | `TSG-JEPA_Research_Report.pdf` | Internal research report: methods, ablation, threats to validity, roadmap. |
+| `assets/TSG-JEPA_30s_1080p.mp4` | 30-second project overview. |
 | `assets/toroidal_convolution.mp4` | 3D animation of the toroidal convolution (kernel sweeping the torus). |
 | `assets/circular_reflective_padding.png` | Diagram of the circular and reflective padding branches and their combined output. |
 | `assets/evaluation/seed_1_42/` | Evaluation figures for Seed 1 (random seed 42). |
