@@ -137,7 +137,7 @@ Squeeze-excite attention and multi-scale pooling are the load-bearing components
 
 | File | What it is |
 |---|---|
-| `TSG_JEPA.ipynb` | Full Colab notebook: data download → SSL pretraining → fine-tuning → evaluation. |
+| `tsg_jepa.py` | Full Colab-exported training script: data download → SSL pretraining → fine-tuning → evaluation. |
 | `TSG-JEPA_Research_Report.pdf` | Internal research report: methods, ablation, threats to validity, roadmap. |
 | `assets/TSG-JEPA_30s_1080p.mp4` | 30-second project overview. |
 | `assets/toroidal_convolution.mp4` | 3D animation of the toroidal convolution (kernel sweeping the torus). |
@@ -150,7 +150,7 @@ Squeeze-excite attention and multi-scale pooling are the load-bearing components
 
 ## Running it
 
-Open `TSG_JEPA.ipynb` in **Google Colab** with a **GPU** runtime and run the cells top to bottom. CAMELYON17-WILDS downloads automatically. Training uses **seed 42**.
+Upload `tsg_jepa.py` to **Google Colab**, use a **GPU** runtime, and run the cells top to bottom. CAMELYON17-WILDS downloads automatically. Training uses **seed 456**.
 
 ## Roadmap
 
