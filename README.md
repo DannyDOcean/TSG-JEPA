@@ -7,18 +7,6 @@ TSG-JEPA — *"japatoidal"* = **JEPA** + **toroidal** — is a **~1.3M-parameter
 > **Four-seed evaluation on the official out-of-distribution test split (two unseen hospitals):**
 > accuracy is **93.70–94.04%** and AUC is **0.9783–0.9789** across random seeds 42, 123, 456, and 789 — at ~1.3M parameters and **zero external pre-training data**.
 
-## Videos
-
-### TSG-JEPA in 30 seconds
-
-https://github.com/user-attachments/assets/859ce82a-3752-4498-973f-e4444f57769f
-
-### Toroidal convolution in motion
-
-https://github.com/user-attachments/assets/4adc6b2d-3f45-4f19-a6f9-90e2ed514785
-
----
-
 ## Architecture
 
 ![Architecture](assets/architecture.png)
@@ -32,6 +20,22 @@ Three ideas define the model:
 - **Cyclic-translation equivariance.** The encoder is trained so that wrap-shifting a patch on the torus shifts its feature map identically — turning the toroidal prior from a passive padding choice into an active mechanism.
 
 Fine-tuning adds focal loss + label smoothing, learned class anchors, D4 / toroidal invariance, Sharpness-Aware Minimisation (flat minima), weight EMA, hard-negative mining, and test-time augmentation — each targeting a specific cross-hospital failure mode.
+
+### Multi-statistic global pooling
+
+The encoder turns its spatial feature maps into one compact **512-dimensional representation**. For a batch of images, its feature tensor has shape **B × C × H × W**: `B` is the batch size, `C` is the number of learned feature channels (**160** here), and `H × W` is the spatial grid in each channel. Each channel acts like a learned detector for patterns in the tissue.
+
+The same feature tensor feeds three pooling branches. Each branch summarizes the spatial grid while retaining one value per channel:
+
+- **Global mean pooling** averages each channel over all `H × W` positions, capturing its overall response across the tissue.
+- **Global maximum pooling** keeps the largest value in each channel, preserving a strong local response that averaging could dilute.
+- **Norm-weighted pooling** measures the combined feature-vector strength at each spatial position, converts those strengths to spatial weights, and uses a weighted sum to combine the feature vectors. Stronger locations contribute more.
+
+Each branch produces a **160-value descriptor**. Concatenating the mean, maximum, and norm-weighted descriptors gives **480 values** (`160 + 160 + 160`). A linear projection maps these to **512 dimensions**, and LayerNorm helps keep the resulting embedding on a consistent scale. This single vector represents the tissue patch for downstream components such as the classifier.
+
+![Multi-statistic global pooling in TSG-JEPA](assets/tsg_jepa_multi_statistic_global_pooling.png)
+
+*The three branches summarize the same feature map with different spatial statistics; this is multi-statistic global pooling, not multi-scale pooling.*
 
 ---
 
@@ -139,8 +143,6 @@ Squeeze-excite attention and multi-scale pooling are the load-bearing components
 |---|---|
 | `tsg_jepa.py` | Full Colab-exported training script: data download → SSL pretraining → fine-tuning → evaluation. |
 | `TSG-JEPA_Research_Report.pdf` | Internal research report: methods, ablation, threats to validity, roadmap. |
-| `assets/TSG-JEPA_30s_1080p.mp4` | 30-second project overview. |
-| `assets/toroidal_convolution.mp4` | 3D animation of the toroidal convolution (kernel sweeping the torus). |
 | `assets/circular_reflective_padding.png` | Diagram of the circular and reflective padding branches and their combined output. |
 | `assets/evaluation/seed_1_42/` | Evaluation figures for Seed 1 (random seed 42). |
 | `assets/evaluation/seed_2_123/` | Evaluation figures for Seed 2 (random seed 123). |
